@@ -1,10 +1,13 @@
-package com.paradoxical.moonphaseinfo;
+package codes.ztereohype.moonphaseinfoplus;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
-public class MoonPhaseInfoMod implements ClientModInitializer {
-    public static final String MOD_ID = "moonphaseinfo";
+import java.nio.file.Paths;
+
+public class MoonPhaseInfoPlusMod implements ClientModInitializer {
+    public static final String MOD_ID = "moonphaseinfoplus";
+    public static final Config CONFIG = new Config(Paths.get("./config/moonphaseinfoplus.config"));
 
     PhaseIcon icon;
 

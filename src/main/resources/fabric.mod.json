@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "moonphaseinfo",
-  "version": "1.0",
+  "id": "moonphaseinfoplus",
+  "version": "1.1",
 
-  "name": "Moon Phase Info",
+  "name": "Moon Phase Info Plus",
   "description": "Displays info about the current phase of the moon in-game.",
   "authors": [
-    "xparadoxical_"
+    "xparadoxical_",
+    "ZtereoHYPE"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/moon-phase-info",
@@ -14,15 +15,15 @@
   },
 
   "license": "Unlicense",
-  "icon": "assets/moonphaseinfo/icon.png",
+  "icon": "assets/moonphaseinfoplus/icon.png",
 
   "environment": "client",
   "entrypoints": {
-    "client": ["com.paradoxical.moonphaseinfo.MoonPhaseInfoMod"]
+    "client": [
+      "codes.ztereohype.moonphaseinfoplus.MoonPhaseInfoPlusMod"
+    ]
   },
-  "mixins": [
-    "moonphaseinfo.mixins.json"
-  ],
+  "mixins": [],
 
   "depends": {
     "fabricloader": ">=0.10.4",

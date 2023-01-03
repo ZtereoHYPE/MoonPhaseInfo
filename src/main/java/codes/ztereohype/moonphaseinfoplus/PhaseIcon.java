@@ -1,4 +1,4 @@
-package com.paradoxical.moonphaseinfo;
+package codes.ztereohype.moonphaseinfoplus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class PhaseIcon extends DrawableHelper {
     private static final Identifier INVENTORY = new Identifier("textures/gui/container/inventory.png");
-    private static final Identifier ICONS = new Identifier(MoonPhaseInfoMod.MOD_ID, "textures/environment/moon_phases_icons.png");
+    private static final Identifier ICONS = new Identifier(MoonPhaseInfoPlusMod.MOD_ID, "textures/environment/moon_phases_icons.png");
 
     private static final Formatting[] FULLNESS_COLOR = new Formatting[]
             {Formatting.RED, Formatting.GOLD, Formatting.YELLOW, Formatting.GREEN, Formatting.DARK_GREEN};
@@ -17,6 +17,7 @@ public class PhaseIcon extends DrawableHelper {
     void drawPhaseIcon(MatrixStack matrixStack) {
         MinecraftClient mc = MinecraftClient.getInstance();
         int windowWidth = mc.getWindow().getScaledWidth();
+        int windowHeight = mc.getWindow().getScaledHeight();
 
         if (mc.options.debugEnabled) {
             RenderSystem.setShaderColor(1f, 1f, 1f, 0.25f);
@@ -24,8 +25,10 @@ public class PhaseIcon extends DrawableHelper {
 
         RenderSystem.setShaderTexture(0, INVENTORY);
         int a = 24;
-        int x = windowWidth / 2 - a - 1;
-        int y = 1;
+//        int x = windowWidth / 2 - a - 1;
+//        int y = 1;
+        int x = MoonPhaseInfoPlusMod.CONFIG.getX(windowWidth);
+        int y = MoonPhaseInfoPlusMod.CONFIG.getY(windowHeight);
         drawTexture(matrixStack, x, y, 400, 141, 166, a, a, 256, 256);
 
         RenderSystem.enableBlend();
@@ -49,13 +52,13 @@ public class PhaseIcon extends DrawableHelper {
                 FULLNESS_COLOR[sizePercent / 25],
                 sizePercent,
                 phase <= 3 ? Formatting.RED + "↓" : Formatting.DARK_GREEN + "↑"),
-                windowWidth / 2 + 1, 5, transparencyMask);
+                x + a + 1, y, transparencyMask);
 
         //time left
         long daySecondsLeft = (24000 - mc.world.getTimeOfDay() % 24000) / 20;
         long dayMinutesLeft = daySecondsLeft / 60;
         boolean atLeast60s = daySecondsLeft >= 60;
         mc.textRenderer.drawWithShadow(matrixStack, Formatting.DARK_AQUA + (atLeast60s ? dayMinutesLeft + "min" : daySecondsLeft + "s"),
-                windowWidth / 2 + 1, 5 + mc.textRenderer.fontHeight, transparencyMask);
+                x + a + 1, y + mc.textRenderer.fontHeight, transparencyMask);
     }
 }
