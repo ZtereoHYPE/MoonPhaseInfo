@@ -14,6 +14,6 @@ public class MoonPhaseInfoPlusMod implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         icon = new PhaseIcon();
-        HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> icon.drawPhaseIcon(matrixStack));
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> icon.drawPhaseIcon(drawContext));
     }
 }
