@@ -57,6 +57,8 @@ public class PhaseIcon {
         boolean atLeast60s = daySecondsLeft >= 60;
         //todo: figure out why translucent text is not working
         drawContext.drawTextWithShadow(mc.textRenderer, Formatting.DARK_AQUA + (atLeast60s ? dayMinutesLeft + "min" : daySecondsLeft + "s"),
-                x + a + 1, y + mc.textRenderer.fontHeight, transparencyMask);
+                x + width + 1, y + mc.textRenderer.fontHeight, transparencyMask);
+
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     }
 }
