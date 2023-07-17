@@ -22,40 +22,38 @@ public class PhaseIcon {
             RenderSystem.setShaderColor(1f, 1f, 1f, 0.25f);
         }
 
-        int a = 24;
-//        int x = windowWidth / 2 - a - 1;
-//        int y = 1;
+        int width = 24;
         int x = MoonPhaseInfoPlusMod.CONFIG.getX(windowWidth);
         int y = MoonPhaseInfoPlusMod.CONFIG.getY(windowHeight);
-        drawContext.drawTexture(INVENTORY, x, y, 400, 141, 166, a, a, 256, 256);
+        drawContext.drawTexture(INVENTORY, x, y, 400, 141, 166, width, width, 256, 256);
 
-        int a2 = 18;
-        int d = a / 2 - a2 / 2;
+        int moonWidth = 18;
+        int d = width / 2 - moonWidth / 2;
         x += d;
         y += d;
 
         int phase = mc.world.getMoonPhase();
-        int u = ((4 - phase % 4) % 4) * a2; //{0, 3, 2, 1, 0, 3, 2, 1}[phase] * side length
-        int v = phase >= 1 && phase <= 4 ? a2 : 0;
+        int u = ((4 - phase % 4) % 4) * moonWidth; //{0, 3, 2, 1, 0, 3, 2, 1}[phase] * side length
+        int v = phase >= 1 && phase <= 4 ? moonWidth : 0;
 
         RenderSystem.enableBlend();
-        drawContext.drawTexture(ICONS, x, y, 400, (float)u, (float)v, a2, a2, 72, 36);
+        drawContext.drawTexture(ICONS, x, y, 400, (float)u, (float)v, moonWidth, moonWidth, 72, 36);
         RenderSystem.disableBlend();
 
         //fullness
-        int transparencyMask = mc.options.debugEnabled ? 0x50FFFFFF : 0xFFFFFFFF;
+        int transparencyMask = mc.options.debugEnabled ? 0xFEFFFFFF : 0xFFFFFFFF;
         int sizePercent = (int)(mc.world.getMoonSize() * 100f);
         drawContext.drawTextWithShadow(mc.textRenderer, String.format("%s%d%%%s",
                 FULLNESS_COLOR[sizePercent / 25],
                 sizePercent,
                 phase <= 3 ? Formatting.RED + "↓" : Formatting.DARK_GREEN + "↑"),
-                x + a + 1, y, transparencyMask);
+                x + width + 1, y, transparencyMask);
 
         //time left
         long daySecondsLeft = (24000 - mc.world.getTimeOfDay() % 24000) / 20;
         long dayMinutesLeft = daySecondsLeft / 60;
         boolean atLeast60s = daySecondsLeft >= 60;
-        //todo: figure out why translucent text is not working
+
         drawContext.drawTextWithShadow(mc.textRenderer, Formatting.DARK_AQUA + (atLeast60s ? dayMinutesLeft + "min" : daySecondsLeft + "s"),
                 x + width + 1, y + mc.textRenderer.fontHeight, transparencyMask);
 
