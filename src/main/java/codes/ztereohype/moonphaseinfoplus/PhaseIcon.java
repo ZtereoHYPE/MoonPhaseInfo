@@ -7,7 +7,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class PhaseIcon {
-    private static final Identifier INVENTORY = new Identifier("textures/gui/container/inventory.png");
+    private static final Identifier INVENTORY = new Identifier("minecraft:textures/gui/sprites/hud/effect_background.png");
     private static final Identifier ICONS = new Identifier(MoonPhaseInfoPlusMod.MOD_ID, "textures/environment/moon_phases_icons.png");
 
     private static final Formatting[] FULLNESS_COLOR = new Formatting[]
@@ -18,14 +18,14 @@ public class PhaseIcon {
         int windowWidth = mc.getWindow().getScaledWidth();
         int windowHeight = mc.getWindow().getScaledHeight();
 
-        if (mc.options.debugEnabled) {
+        if (mc.getDebugHud().shouldShowDebugHud()) {
             RenderSystem.setShaderColor(1f, 1f, 1f, 0.25f);
         }
 
         int width = 24;
         int x = MoonPhaseInfoPlusMod.CONFIG.getX(windowWidth);
         int y = MoonPhaseInfoPlusMod.CONFIG.getY(windowHeight);
-        drawContext.drawTexture(INVENTORY, x, y, 400, 141, 166, width, width, 256, 256);
+        drawContext.drawTexture(INVENTORY, x, y, 0, 0, 0, width, width, 24, 24);
 
         int moonWidth = 18;
         int d = width / 2 - moonWidth / 2;
@@ -41,7 +41,7 @@ public class PhaseIcon {
         RenderSystem.disableBlend();
 
         //fullness
-        int transparencyMask = mc.options.debugEnabled ? 0xFEFFFFFF : 0xFFFFFFFF;
+        int transparencyMask = mc.getDebugHud().shouldShowDebugHud() ? 0xFEFFFFFF : 0xFFFFFFFF;
         int sizePercent = (int)(mc.world.getMoonSize() * 100f);
         drawContext.drawTextWithShadow(mc.textRenderer, String.format("%s%d%%%s",
                 FULLNESS_COLOR[sizePercent / 25],
